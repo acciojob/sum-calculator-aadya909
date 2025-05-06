@@ -28,7 +28,7 @@ const App = () => {
         onChange={(e) => setNumber(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            e.preventDefault(); // important for Cypress consistency
+            e.preventDefault();
             handleInputSubmit();
           }
         }}
@@ -42,4 +42,5 @@ const App = () => {
 };
 
 export default App;
+
 
