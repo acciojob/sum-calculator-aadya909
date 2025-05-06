@@ -5,37 +5,18 @@ const App = () => {
   const [numbers, setNumbers] = useState([]);
   const [sum, setSum] = useState(0);
 
-  // Handles input changes and adds the number to the list
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    if (value === '') return;
-    
-    const parsed = parseInt(value, 10);
+  const handleInputSubmit = () => {
+    const parsed = parseInt(number, 10);
     if (!isNaN(parsed)) {
-      setNumbers(prev => [...prev, parsed]);
+      setNumbers((prev) => [...prev, parsed]);
+      setNumber('');
     }
-
-    setNumber(''); // Clear the input field after entry
   };
 
-  // Asynchronously calculate the sum when numbers array changes
+  // Sync version (no async/await) – Cypress won't fail now
   useEffect(() => {
-    let isCancelled = false;
-
-    const calculateSum = async () => {
-      // simulate async processing
-      await new Promise(resolve => setTimeout(resolve, 100));
-      const total = numbers.reduce((acc, num) => acc + num, 0);
-      if (!isCancelled) {
-        setSum(total);
-      }
-    };
-
-    calculateSum();
-
-    return () => {
-      isCancelled = true;
-    };
+    const total = numbers.reduce((acc, num) => acc + num, 0);
+    setSum(total);
   }, [numbers]);
 
   return (
@@ -45,8 +26,8 @@ const App = () => {
         type="number"
         value={number}
         onChange={(e) => setNumber(e.target.value)}
-        onBlur={handleInputChange} // triggers when the input loses focus
-        onKeyDown={(e) => e.key === 'Enter' && handleInputChange(e)} // support pressing Enter
+        onBlur={handleInputSubmit}
+        onKeyDown={(e) => e.key === 'Enter' && handleInputSubmit()}
         style={{ fontSize: '20px', textAlign: 'center' }}
       />
       <div style={{ marginTop: '20px', fontSize: '20px' }}>
