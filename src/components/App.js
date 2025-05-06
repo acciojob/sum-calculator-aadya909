@@ -8,7 +8,7 @@ const App = () => {
   const handleInputSubmit = () => {
     const parsed = parseInt(number, 10);
     if (!isNaN(parsed)) {
-      setNumbers((prev) => [...prev, parsed]);
+      setNumbers(prev => [...prev, parsed]);
       setNumber('');
     }
   };
@@ -22,15 +22,18 @@ const App = () => {
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>Sum Calculator</h1>
       <input
+        data-testid="number-input"
         type="number"
         value={number}
         onChange={(e) => setNumber(e.target.value)}
-        onBlur={handleInputSubmit}
-        onKeyDown={(e) => e.key === 'Enter' && handleInputSubmit()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault(); // important for Cypress consistency
+            handleInputSubmit();
+          }
+        }}
         style={{ fontSize: '20px', textAlign: 'center' }}
       />
-      
-      {/* Updated this to a <p> tag and added a data-testid */}
       <p data-testid="sum-output" style={{ marginTop: '20px', fontSize: '20px' }}>
         Sum: {sum}
       </p>
@@ -39,3 +42,4 @@ const App = () => {
 };
 
 export default App;
+
