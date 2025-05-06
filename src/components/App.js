@@ -8,7 +8,7 @@ const App = () => {
   const handleInputSubmit = () => {
     const parsed = parseInt(number, 10);
     if (!isNaN(parsed)) {
-      setNumbers(prev => [...prev, parsed]);
+      setNumbers((prev) => [...prev, parsed]);
       setNumber('');
     }
   };
@@ -26,14 +26,11 @@ const App = () => {
         type="number"
         value={number}
         onChange={(e) => setNumber(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            handleInputSubmit();
-          }
-        }}
         style={{ fontSize: '20px', textAlign: 'center' }}
       />
+      <button data-testid="submit-btn" onClick={handleInputSubmit}>
+        Add Number
+      </button>
       <p data-testid="sum-output" style={{ marginTop: '20px', fontSize: '20px' }}>
         Sum: {sum}
       </p>
@@ -42,5 +39,6 @@ const App = () => {
 };
 
 export default App;
+
 
 

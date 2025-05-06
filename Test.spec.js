@@ -1,6 +1,6 @@
 describe('testing sum calculator', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:8080'); // adjust port if different
+      cy.visit('http://localhost:8080'); // or your local dev port
     });
   
     it('testing tags', () => {
@@ -13,12 +13,12 @@ describe('testing sum calculator', () => {
     });
   
     it('testing with different input', () => {
-      cy.get('[data-testid="number-input"]').type('1{enter}');
-      cy.wait(100); // wait briefly for state update
-      cy.get('[data-testid="number-input"]').type('2{enter}');
-      cy.wait(100); // ensure both inputs are processed
+      cy.get('[data-testid="number-input"]').type('1');
+      cy.get('[data-testid="submit-btn"]').click();
+      cy.get('[data-testid="number-input"]').type('2');
+      cy.get('[data-testid="submit-btn"]').click();
   
-      cy.get('[data-testid="sum-output"]', { timeout: 2000 }).should('contain', 'Sum: 3');
+      cy.get('[data-testid="sum-output"]').should('contain', 'Sum: 3');
     });
   });
   
