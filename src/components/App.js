@@ -13,7 +13,6 @@ const App = () => {
     }
   };
 
-  // Sync version (no async/await) – Cypress won't fail now
   useEffect(() => {
     const total = numbers.reduce((acc, num) => acc + num, 0);
     setSum(total);
@@ -30,9 +29,11 @@ const App = () => {
         onKeyDown={(e) => e.key === 'Enter' && handleInputSubmit()}
         style={{ fontSize: '20px', textAlign: 'center' }}
       />
-      <div style={{ marginTop: '20px', fontSize: '20px' }}>
+      
+      {/* Updated this to a <p> tag and added a data-testid */}
+      <p data-testid="sum-output" style={{ marginTop: '20px', fontSize: '20px' }}>
         Sum: {sum}
-      </div>
+      </p>
     </div>
   );
 };
