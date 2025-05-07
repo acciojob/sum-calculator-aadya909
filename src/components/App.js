@@ -1,44 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
+import './../styles/App.css';
+import SumCalculator from "./SumCalculator";
 
 const App = () => {
-  const [number, setNumber] = useState('');
-  const [numbers, setNumbers] = useState([]);
-  const [sum, setSum] = useState(0);
-
-  const handleInputSubmit = () => {
-    const parsed = parseInt(number, 10);
-    if (!isNaN(parsed)) {
-      setNumbers((prev) => [...prev, parsed]);
-      setNumber('');
-    }
-  };
-
-  useEffect(() => {
-    const total = numbers.reduce((acc, num) => acc + num, 0);
-    setSum(total);
-  }, [numbers]);
-
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Sum Calculator</h1>
-      <input
-        data-testid="number-input"
-        type="number"
-        value={number}
-        onChange={(e) => setNumber(e.target.value)}
-        style={{ fontSize: '20px', textAlign: 'center' }}
-      />
-      <button data-testid="submit-btn" onClick={handleInputSubmit}>
-        Add Number
-      </button>
-      <p data-testid="sum-output" style={{ marginTop: '20px', fontSize: '20px' }}>
-        Sum: {sum}
-      </p>
+    <div>
+        {/* Do not remove the main div */}
+        <SumCalculator />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
 
 
 
